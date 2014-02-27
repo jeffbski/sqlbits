@@ -229,8 +229,11 @@ function Context(){
 				var value = item.v;
 				// don't collate nulls, in SQL they are not equal
 				// Can cause inconsistent type deduced error in Postgres
+                                /* disabling collapsing since causes issues
 				var idx = (value === null) ? -1 : params.indexOf(value);
 				idx = (~idx? idx+1 : params.push(value) );
+                                */
+                                var idx = params.push(value); // no collapsing
 				out[i] = this.createParam(idx);
 			}
 		}
