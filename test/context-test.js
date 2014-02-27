@@ -121,10 +121,10 @@ vows.describe("sqltokens tests")
 			"additional statements": {
 				topic: SQL(IN($(5),"8",$(7)), IN("6",$(5),"4")),
 				'should continue param numbering': function(topic){
-					assert.equal("IN($1,8,$2) IN(6,$1,4)", topic.sql);
+					assert.equal("IN($1,8,$2) IN(6,$3,4)", topic.sql);
 				},
-				"should add the params without duplicates":function(topic){
-					assert.lengthOf(topic.params, 2);
+				"should add the params with duplicates":function(topic){
+					assert.lengthOf(topic.params, 3);
 				}
 			},
 			"duplicate params": {
@@ -224,9 +224,9 @@ vows.describe("sqltokens tests")
 			},
 			"additional condition statements": {
 				topic: SQL(AND("1=",$(99), OR("2=", $(2)), OR("2=", $(99)))),
-				'should continue param numbering or reuse a param that has the same value': function(topic){
-					assert.equal("AND(1=$1 OR 2=$2 OR 2=$1)", topic.sql);
-					assert.lengthOf(topic.params, 2);
+				'should continue param numbering': function(topic){
+					assert.equal("AND(1=$1 OR 2=$2 OR 2=$3)", topic.sql);
+					assert.lengthOf(topic.params, 3);
 				}
 			},
 			"arguments that are sql 'bits'": {
